@@ -8,5 +8,7 @@ public interface NewsListView {
 
     void loadingFailed(String errorMessage);
 
+    void loadingSuccess(String successMessage);
+
     void onArticleClicked(Article article);
 }
