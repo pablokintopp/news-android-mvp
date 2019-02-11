@@ -8,5 +8,5 @@ public interface NewsListView {
 
     void loadingFailed(String errorMessage);
 
-    void onArticleClicked(Article article); // ToDo create News POJO
+    void onArticleClicked(Article article);
 }
