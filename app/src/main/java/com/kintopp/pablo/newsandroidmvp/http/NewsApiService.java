@@ -9,5 +9,5 @@ import retrofit2.http.Query;
 public interface NewsApiService {
 
     @GET("top-headlines")
-    Observable<NewsApiResult> getTopHeadlines(@Query("country") String country, @Query("Page") Integer page );
+    Observable<NewsApiResult> getTopHeadlines(@Query("language") String language, @Query("page") Integer page );
 }
