@@ -13,13 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NewsApiModule {
 
-    public final String BASE_URL = "API_URL_HERE";
-    public final String API_KEY = "MY_API_KEY";
+    public final String BASE_URL = "https://newsapi.org/v2/";
+    public final String API_KEY = "YOUR_API_KEY";
 
     @Provides
     public OkHttpClient provideClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder().addInterceptor(interceptor)
                 .addInterceptor(chain -> {
