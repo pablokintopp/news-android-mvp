@@ -21,9 +21,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
 
     private List<ViewModel> list;
     private Context context;
+    private NewsListView newsListView;
 
-    public ListAdapter(List<ViewModel> list) {
+    public ListAdapter(List<ViewModel> list, NewsListView newsListView) {
         this.list = list;
+        this.newsListView = newsListView;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
     public void onBindViewHolder(@NonNull ListItemViewHolder holder, int position) {
         holder.newsTitle.setText(list.get(position).getTitle());
         Glide.with(context).load(list.get(position).getImageUrl()).into(holder.newsImage);
+        holder.viewPosition = position;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
         return this.list.size();
     }
 
-    public static class ListItemViewHolder extends RecyclerView.ViewHolder {
+    public  class ListItemViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_view_news)
         public ImageView newsImage;
@@ -53,9 +56,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
         @BindView(R.id.text_view_news_title)
         public TextView newsTitle;
 
+        public int viewPosition;
+
         public ListItemViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ListAdapter.this.newsListView.onArticleClicked(viewPosition);
+                }
+            });
         }
+
+
     }
 }

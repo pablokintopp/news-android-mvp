@@ -10,5 +10,5 @@ public interface NewsListView {
 
     void loadingSuccess(String successMessage);
 
-    void onArticleClicked(Article article);
+    void onArticleClicked(int articlePosition);
 }

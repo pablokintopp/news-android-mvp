@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NewsListView {
 
         ((App) getApplication()).getComponent().inject(this);
 
-        listAdapter = new ListAdapter(newsList);
+        listAdapter = new ListAdapter(newsList, this);
 
         recyclerView.setAdapter(listAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements NewsListView {
     }
 
     @Override
-    public void onArticleClicked(Article article) {
-        Log.d(TAG, "Article Clicked: " + article.getTitle());
+    public void onArticleClicked(int articlePosition) {
+        Log.d(TAG, "Article Clicked: " + this.newsList.get(articlePosition).getTitle());
     }
 
     @Override
