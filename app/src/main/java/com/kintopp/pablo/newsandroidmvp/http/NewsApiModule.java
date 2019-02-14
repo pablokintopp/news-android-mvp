@@ -1,5 +1,7 @@
 package com.kintopp.pablo.newsandroidmvp.http;
 
+import com.kintopp.pablo.newsandroidmvp.BuildConfig;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
@@ -14,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NewsApiModule {
 
     public final String BASE_URL = "https://newsapi.org/v2/";
-    public final String API_KEY = "YOUR_API_KEY";
+    public final String API_KEY = BuildConfig.NEWS_API_KEY;
 
     @Provides
     public OkHttpClient provideClient() {
