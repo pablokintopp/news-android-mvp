@@ -1,10 +1,13 @@
 
 package com.kintopp.pablo.newsandroidmvp.http.apimodel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Article {
+public class Article  implements Parcelable {
 
     @SerializedName("source")
     @Expose
@@ -30,6 +33,34 @@ public class Article {
     @SerializedName("content")
     @Expose
     private String content;
+
+    public Article(String title, String description, String urlToImage) {
+        this.title = title;
+        this.description = description;
+        this.urlToImage = urlToImage;
+
+    }
+
+    protected Article(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+        content = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 
     public Source getSource() {
         return source;
@@ -95,4 +126,19 @@ public class Article {
         this.content = content;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(content);
+        dest.writeString(description);
+        dest.writeString(publishedAt);
+        dest.writeString(title);
+        dest.writeString(url);
+        dest.writeString(urlToImage);
+
+    }
 }

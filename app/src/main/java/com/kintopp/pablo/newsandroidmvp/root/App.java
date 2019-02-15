@@ -3,6 +3,7 @@ package com.kintopp.pablo.newsandroidmvp.root;
 import android.app.Application;
 
 import com.kintopp.pablo.newsandroidmvp.http.NewsApiModule;
+import com.kintopp.pablo.newsandroidmvp.newsdetails.NewsDetailsModule;
 import com.kintopp.pablo.newsandroidmvp.newslist.NewsListModule;
 
 public class App extends Application {
@@ -17,6 +18,7 @@ public class App extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .newsApiModule(new NewsApiModule())
                 .newsListModule(new NewsListModule())
+                .newsDetailsModule(new NewsDetailsModule())
                 .build();
     }
 

@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
+import com.kintopp.pablo.newsandroidmvp.newsdetails.NewsDetailsActivity;
 import com.kintopp.pablo.newsandroidmvp.newslist.ListAdapter;
 import com.kintopp.pablo.newsandroidmvp.newslist.NewsListPresenter;
 import com.kintopp.pablo.newsandroidmvp.newslist.NewsListView;
@@ -82,6 +84,16 @@ public class MainActivity extends AppCompatActivity implements NewsListView {
     @Override
     public void onArticleClicked(int articlePosition) {
         Log.d(TAG, "Article Clicked: " + this.newsList.get(articlePosition).getTitle());
+
+        ViewModel vm = this.newsList.get(articlePosition);
+        Article article = new Article(vm.getTitle(), vm.getTitle(), vm.getImageUrl());
+
+
+        Intent intent = new Intent(this, NewsDetailsActivity.class);
+        Bundle extras = new Bundle();
+        extras.putParcelable("com.kintopp.pablo.newsandroidmvp.article", article);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
     @Override

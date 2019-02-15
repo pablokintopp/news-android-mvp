@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">News Android MVP</string>
+    <string name="news_detail_title">News Detail</string>
 </resources>
