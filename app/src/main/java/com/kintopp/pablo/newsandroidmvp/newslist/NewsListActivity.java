@@ -38,10 +38,11 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     NewsListPresenter presenter;
 
     private ListAdapter listAdapter;
-    private List<ViewModel> newsList = new ArrayList<>();
+    private List<Article> newsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -49,22 +50,27 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
         ((App) getApplication()).getComponent().inject(this);
 
-        listAdapter = new ListAdapter(newsList, this);
+        if (savedInstanceState == null) {
+            listAdapter = new ListAdapter(newsList, this);
 
-        recyclerView.setAdapter(listAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(listAdapter);
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setHasFixedSize(false);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        }
+
+
 
 
     }
 
     @Override
-    public void showNews(ViewModel viewModel) {
-        newsList.add(viewModel);
+    public void showNews(Article article) {
+        newsList.add(article);
         listAdapter.notifyItemInserted(newsList.size() - 1);
-        Log.d(TAG, "News Added: " + viewModel.getTitle());
+        Log.d(TAG, "News Added: " + article.getTitle());
 
     }
 
@@ -79,15 +85,8 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     @Override
-    public void onArticleClicked(int articlePosition) {
-        Log.d(TAG, "Article Clicked: " + this.newsList.get(articlePosition).getTitle());
-
-        ViewModel vm = this.newsList.get(articlePosition);
-        Article article = new Article();
-        article.setTitle(vm.getTitle());
-        article.setDescription(vm.getTitle());
-        article.setUrlToImage(vm.getImageUrl());
-
+    public void onArticleClicked(Article article) {
+        Log.d(TAG, "Article Clicked: " + article.getTitle());
 
         Intent intent = new Intent(this, NewsDetailsActivity.class);
         Bundle extras = new Bundle();

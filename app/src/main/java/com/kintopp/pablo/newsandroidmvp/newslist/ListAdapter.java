@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kintopp.pablo.newsandroidmvp.R;
+import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ import butterknife.ButterKnife;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHolder> {
 
-    private List<ViewModel> list;
+    private List<Article> list;
     private Context context;
     private NewsListView newsListView;
 
-    public ListAdapter(List<ViewModel> list, NewsListView newsListView) {
+    public ListAdapter(List<Article> list, NewsListView newsListView) {
         this.list = list;
         this.newsListView = newsListView;
     }
@@ -39,8 +40,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
     @Override
     public void onBindViewHolder(@NonNull ListItemViewHolder holder, int position) {
         holder.newsTitle.setText(list.get(position).getTitle());
-        Glide.with(context).load(list.get(position).getImageUrl()).into(holder.newsImage);
-        holder.viewPosition = position;
+        Glide.with(context).load(list.get(position).getUrlToImage()).into(holder.newsImage);
+        holder.article = list.get(position);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
         @BindView(R.id.text_view_news_title)
         public TextView newsTitle;
 
-        public int viewPosition;
+        public Article article;
 
         public ListItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,7 +66,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListItemViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ListAdapter.this.newsListView.onArticleClicked(viewPosition);
+                    ListAdapter.this.newsListView.onArticleClicked(article);
                 }
             });
         }

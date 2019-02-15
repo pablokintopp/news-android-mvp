@@ -1,5 +1,7 @@
 package com.kintopp.pablo.newsandroidmvp.newslist;
 
+import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
+
 import io.reactivex.Observable;
 
 public class NewsListModelImpl implements NewsListModel {
@@ -13,7 +15,7 @@ public class NewsListModelImpl implements NewsListModel {
 
 
     @Override
-    public Observable<ViewModel> result() {
-        return repo.getArticleData().map(article -> new ViewModel(article.getTitle(), article.getUrlToImage()));
+    public Observable<Article> result() {
+        return repo.getArticleData();
     }
 }

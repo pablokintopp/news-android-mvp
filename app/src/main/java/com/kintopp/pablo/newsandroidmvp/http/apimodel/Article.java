@@ -40,10 +40,10 @@ public class Article  implements Parcelable {
     protected Article(Parcel in) {
         title = in.readString();
         description = in.readString();
-//        url = in.readString();
+        url = in.readString();
         urlToImage = in.readString();
-//        publishedAt = in.readString();
-//        content = in.readString();
+        publishedAt = in.readString();
+        content = in.readString();
     }
 
     public static final Creator<Article> CREATOR = new Creator<Article>() {
@@ -131,10 +131,10 @@ public class Article  implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeString(url);
         dest.writeString(urlToImage);
-//        dest.writeString(content);
-//        dest.writeString(publishedAt);
-//        dest.writeString(url);
+        dest.writeString(publishedAt);
+        dest.writeString(content);
 
     }
 }

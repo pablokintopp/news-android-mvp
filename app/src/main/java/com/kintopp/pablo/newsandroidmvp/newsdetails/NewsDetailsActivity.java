@@ -30,7 +30,7 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
     TextView title;
     @BindView(R.id.news_description)
     TextView description;
-    @BindView(R.id.collapsin_toolbar)
+    @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar)
     @Nullable

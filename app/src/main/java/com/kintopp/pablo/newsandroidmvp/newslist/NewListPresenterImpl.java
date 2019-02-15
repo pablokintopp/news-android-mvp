@@ -1,5 +1,7 @@
 package com.kintopp.pablo.newsandroidmvp.newslist;
 
+import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -22,11 +24,11 @@ public class NewListPresenterImpl implements NewsListPresenter {
         subscription = model.result()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ViewModel>() {
+                .subscribeWith(new DisposableObserver<Article>() {
                     @Override
-                    public void onNext(ViewModel viewModel) {
+                    public void onNext(Article article) {
                         if (view != null)
-                            view.showNews(viewModel);
+                            view.showNews(article);
                     }
 
                     @Override

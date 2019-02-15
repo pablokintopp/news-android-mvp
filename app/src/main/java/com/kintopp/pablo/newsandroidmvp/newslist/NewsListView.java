@@ -4,11 +4,11 @@ import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
 
 public interface NewsListView {
 
-    void showNews(ViewModel viewModel);
+    void showNews(Article article);
 
     void loadingFailed(String errorMessage);
 
     void loadingSuccess(String successMessage);
 
-    void onArticleClicked(int articlePosition);
+    void onArticleClicked(Article article);
 }
