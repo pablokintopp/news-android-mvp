@@ -1,4 +1,4 @@
-package com.kintopp.pablo.newsandroidmvp;
+package com.kintopp.pablo.newsandroidmvp.newslist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -14,12 +14,9 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.kintopp.pablo.newsandroidmvp.R;
 import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
 import com.kintopp.pablo.newsandroidmvp.newsdetails.NewsDetailsActivity;
-import com.kintopp.pablo.newsandroidmvp.newslist.ListAdapter;
-import com.kintopp.pablo.newsandroidmvp.newslist.NewsListPresenter;
-import com.kintopp.pablo.newsandroidmvp.newslist.NewsListView;
-import com.kintopp.pablo.newsandroidmvp.newslist.ViewModel;
 import com.kintopp.pablo.newsandroidmvp.root.App;
 
 import java.util.ArrayList;
@@ -27,9 +24,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements NewsListView {
+public class NewsListActivity extends AppCompatActivity implements NewsListView {
 
-    private final String TAG = MainActivity.class.getName();
+    private final String TAG = NewsListActivity.class.getName();
 
     @BindView(R.id.news_list_activity_root)
     ViewGroup rootView;
@@ -86,12 +83,15 @@ public class MainActivity extends AppCompatActivity implements NewsListView {
         Log.d(TAG, "Article Clicked: " + this.newsList.get(articlePosition).getTitle());
 
         ViewModel vm = this.newsList.get(articlePosition);
-        Article article = new Article(vm.getTitle(), vm.getTitle(), vm.getImageUrl());
+        Article article = new Article();
+        article.setTitle(vm.getTitle());
+        article.setDescription(vm.getTitle());
+        article.setUrlToImage(vm.getImageUrl());
 
 
         Intent intent = new Intent(this, NewsDetailsActivity.class);
         Bundle extras = new Bundle();
-        extras.putParcelable("com.kintopp.pablo.newsandroidmvp.article", article);
+        extras.putParcelable("com.kintopp.pablo.newsandroidmvp.article123456", article);
         intent.putExtras(extras);
         startActivity(intent);
     }

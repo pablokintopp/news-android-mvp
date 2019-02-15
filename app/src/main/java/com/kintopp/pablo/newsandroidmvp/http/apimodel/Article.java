@@ -34,20 +34,16 @@ public class Article  implements Parcelable {
     @Expose
     private String content;
 
-    public Article(String title, String description, String urlToImage) {
-        this.title = title;
-        this.description = description;
-        this.urlToImage = urlToImage;
-
+    public Article() {
     }
 
     protected Article(Parcel in) {
         title = in.readString();
         description = in.readString();
-        url = in.readString();
+//        url = in.readString();
         urlToImage = in.readString();
-        publishedAt = in.readString();
-        content = in.readString();
+//        publishedAt = in.readString();
+//        content = in.readString();
     }
 
     public static final Creator<Article> CREATOR = new Creator<Article>() {
@@ -133,12 +129,12 @@ public class Article  implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(content);
-        dest.writeString(description);
-        dest.writeString(publishedAt);
         dest.writeString(title);
-        dest.writeString(url);
+        dest.writeString(description);
         dest.writeString(urlToImage);
+//        dest.writeString(content);
+//        dest.writeString(publishedAt);
+//        dest.writeString(url);
 
     }
 }

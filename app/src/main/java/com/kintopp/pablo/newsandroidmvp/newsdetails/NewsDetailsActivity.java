@@ -52,13 +52,10 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
         ((App) getApplication()).getComponent().inject(this);
         setToolbar();
 
-
-
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if (extras != null && extras.containsKey("com.kintopp.pablo.newsandroidmvp.article")) {
-                Article article = extras.getParcelable("com.kintopp.pablo.newsandroidmvp.article");
+            if (extras != null && extras.containsKey("com.kintopp.pablo.newsandroidmvp.article123456")) {
+                Article article = extras.getParcelable("com.kintopp.pablo.newsandroidmvp.article123456");
                 if (article != null) {
                     presenter.setView(this);
                     presenter.showDetails(article);
@@ -67,33 +64,29 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
         }
     }
 
-    private void setToolbar()
-    {
+    private void setToolbar() {
         collapsingToolbar.setContentScrimColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
         collapsingToolbar.setTitle(getString(R.string.news_detail_title));
         collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedToolbar);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedToolbar);
         collapsingToolbar.setTitleEnabled(true);
 
-        if (toolbar != null)
-        {
+        if (toolbar != null) {
             this.setSupportActionBar(toolbar);
 
 
             ActionBar actionBar = this.getSupportActionBar();
-            if (actionBar != null)
-            {
+            if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
-        } else
-        {
+        } else {
             // landscape
         }
     }
 
     @Override
     public void showDetails(Article article) {
-        Glide.with(getApplicationContext()).load(article.getUrlToImage()).into(image);
+        Glide.with(this).load(article.getUrlToImage()).into(image);
         title.setText(article.getTitle());
         description.setText(article.getDescription());
 
