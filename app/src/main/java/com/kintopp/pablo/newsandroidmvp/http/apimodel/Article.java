@@ -14,7 +14,7 @@ public class Article  implements Parcelable {
     private Source source;
     @SerializedName("author")
     @Expose
-    private Object author;
+    private String author;
     @SerializedName("title")
     @Expose
     private String title;
@@ -38,6 +38,8 @@ public class Article  implements Parcelable {
     }
 
     protected Article(Parcel in) {
+        source = (Source) in.readValue(Source.class.getClassLoader());
+        author = in.readString();
         title = in.readString();
         description = in.readString();
         url = in.readString();
@@ -46,17 +48,6 @@ public class Article  implements Parcelable {
         content = in.readString();
     }
 
-    public static final Creator<Article> CREATOR = new Creator<Article>() {
-        @Override
-        public Article createFromParcel(Parcel in) {
-            return new Article(in);
-        }
-
-        @Override
-        public Article[] newArray(int size) {
-            return new Article[size];
-        }
-    };
 
     public Source getSource() {
         return source;
@@ -66,11 +57,11 @@ public class Article  implements Parcelable {
         this.source = source;
     }
 
-    public Object getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Object author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -129,12 +120,26 @@ public class Article  implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(source);
+        dest.writeString(author);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(url);
         dest.writeString(urlToImage);
         dest.writeString(publishedAt);
         dest.writeString(content);
-
     }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 }
