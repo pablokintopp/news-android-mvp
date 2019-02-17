@@ -10,6 +10,11 @@ import com.kintopp.pablo.newsandroidmvp.R;
 import com.kintopp.pablo.newsandroidmvp.http.apimodel.Article;
 import com.kintopp.pablo.newsandroidmvp.root.App;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
@@ -28,6 +33,10 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
     ImageView image;
     @BindView(R.id.news_title)
     TextView title;
+    @BindView(R.id.news_date)
+    TextView date;
+    @BindView(R.id.news_source)
+    TextView source;
     @BindView(R.id.news_description)
     TextView description;
     @BindView(R.id.collapsing_toolbar)
@@ -54,8 +63,8 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if (extras != null && extras.containsKey("com.kintopp.pablo.newsandroidmvp.article123456")) {
-                Article article = extras.getParcelable("com.kintopp.pablo.newsandroidmvp.article123456");
+            if (extras != null && extras.containsKey("com.kintopp.pablo.newsandroidmvp.article")) {
+                Article article = extras.getParcelable("com.kintopp.pablo.newsandroidmvp.article");
                 if (article != null) {
                     presenter.setView(this);
                     presenter.showDetails(article);
@@ -88,7 +97,25 @@ public class NewsDetailsActivity extends AppCompatActivity implements NewsDetail
     public void showDetails(Article article) {
         Glide.with(this).load(article.getUrlToImage()).into(image);
         title.setText(article.getTitle());
-        description.setText(article.getDescription());
+        description.setText(article.getContent());
+        source.setText(article.getSource().getName());
+        date.setText(getFormatedDate(article.getPublishedAt()));
 
+    }
+
+    private String getFormatedDate(String date){
+        if(date != null)
+            date = date.substring(0,"yyyy-MM-ddTHH:mm:ss".length());
+
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy hh:mm");
+        String dateFormated = "";
+        try {
+            Date result = df1.parse(date);
+            dateFormated = formatter.format(result);
+        } catch (ParseException e) {
+            e.printStackTrace();        }
+
+        return dateFormated;
     }
 }

@@ -106,11 +106,22 @@ public class Article  implements Parcelable {
     }
 
     public String getContent() {
-        return content;
+        int indexReadMore = this.content.indexOf("…");
+        if(indexReadMore > -1){
+            return this.content.substring(0, indexReadMore);
+        }else{
+            return this.content;
+        }
     }
 
     public void setContent(String content) {
-        this.content = content;
+        int indexReadMore = content.indexOf("...");
+        if(indexReadMore > -1){
+            this.content = content.substring(0, indexReadMore);
+        }else{
+            this.content = content;
+        }
+
     }
 
     @Override

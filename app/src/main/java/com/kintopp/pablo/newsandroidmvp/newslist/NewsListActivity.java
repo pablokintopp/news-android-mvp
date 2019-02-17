@@ -61,9 +61,6 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
         }
 
-
-
-
     }
 
     @Override
@@ -90,7 +87,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
         Intent intent = new Intent(this, NewsDetailsActivity.class);
         Bundle extras = new Bundle();
-        extras.putParcelable("com.kintopp.pablo.newsandroidmvp.article123456", article);
+        extras.putParcelable("com.kintopp.pablo.newsandroidmvp.article", article);
         intent.putExtras(extras);
         startActivity(intent);
     }
@@ -106,8 +103,8 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     protected void onStop() {
         super.onStop();
         presenter.rxJavaUnsubscribe();
-        newsList.clear();
-        listAdapter.notifyDataSetChanged();
+//        newsList.clear();
+//        listAdapter.notifyDataSetChanged();
     }
 
 

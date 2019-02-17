@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".newsdetails.NewsDetailsActivity"
             android:parentActivityName=".newslist.NewsListActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
